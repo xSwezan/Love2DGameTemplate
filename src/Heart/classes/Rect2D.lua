@@ -25,13 +25,12 @@ function Rect2D:GetCenter()
 	return self.Position - (self.Size * self.Scale * (self.AnchorPoint - 0.5)):Rotate(math.rad(self.Rotation))
 end
 
-function Rect2D:getCorners()
+function Rect2D:GetCorners()
     local halfWidth = (self.Size.X * self.Scale.X) / 2
     local halfHeight = (self.Size.Y * self.Scale.Y) / 2
 
 	local center = self:GetCenter();
 
-    -- Corners before rotation
     local corners = {
         Vector2.new(-halfWidth, -halfHeight),
         Vector2.new( halfWidth, -halfHeight),
@@ -39,12 +38,10 @@ function Rect2D:getCorners()
         Vector2.new(-halfWidth,  halfHeight),
     }
 
-    -- Rotate and translate corners
     local rotatedCorners = {}
     for _, corner in ipairs(corners) do
         local rotated = corner:Rotate(math.rad(self.Rotation))
 
-        -- Translate by position
         table.insert(rotatedCorners,
 			center + rotated
 		)
@@ -54,7 +51,7 @@ function Rect2D:getCorners()
 end
 
 function Rect2D:Overlaps(other)
-    local cornersA = self:getCorners()
+    local cornersA = self:GetCorners()
     local cornersB = other:getCorners()
 
     for _, corner in ipairs(cornersA) do
@@ -73,7 +70,7 @@ function Rect2D:Overlaps(other)
 end
 
 function Rect2D:PointOverlaps(point)
-    local corners = self:getCorners()
+    local corners = self:GetCorners()
 
     local function sign(p1, p2, p3)
         return (p1.X - p3.X) * (p2.Y - p3.Y) - (p2.X - p3.X) * (p1.Y - p3.Y)
