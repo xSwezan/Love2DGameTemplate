@@ -1,8 +1,4 @@
 {
-    "editor.tokenColorCustomizations": {
-        "comments": "",
-        "textMateRules": []
-    },
     "Lua.diagnostics.globals": [
         "love"
     ],
